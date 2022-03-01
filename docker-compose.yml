@@ -1,0 +1,15 @@
+version: "3.4"
+services:
+  forecasts:
+    build: forecasts
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  postgres:

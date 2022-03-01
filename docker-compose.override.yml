@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  forecasts:
+    image: forecasts:dev
+    build:
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./forecasts:/project
+    ports:
+      - 3001:3001
+  db:
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres:
