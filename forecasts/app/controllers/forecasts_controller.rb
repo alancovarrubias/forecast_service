@@ -1,5 +1,10 @@
 class ForecastsController < ApplicationController
   def create
-    render json: { forecast: {}, address: params[:address] }
+    forecast = Weather::Forecast.new(forecast_params.to_h)
+    render json: { forecast: forecast.fetch, address: params[:address] }
+  end
+
+  def forecast_params
+    params.require(:address).permit(:zipcode)
   end
 end
