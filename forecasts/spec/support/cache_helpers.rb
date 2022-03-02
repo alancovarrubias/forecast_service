@@ -11,8 +11,25 @@ module CacheHelpers
     cache_data.values.map(&:value).any?(value)
   end
 
+  def faraday_cache_counts
+    hits = 0
+    misses = 0
+    ActiveSupport::Notifications.subscribe 'http_cache.faraday' do |*args|
+      event = ActiveSupport::Notifications::Event.new(*args)
+      cache_status = event.payload[:cache_status]
+      case cache_status
+      when :fresh, :valid
+        hits += 1
+      when :invalid, :miss
+        misses += 1
+      end
+    end
+    yield
+    [hits, misses]
+  end
+
   def first_cached_value
-      cache_data.values.first.value
+    cache_data.values.first.value
   end
 
   def key_for_cached_value(value)

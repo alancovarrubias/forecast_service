@@ -9,9 +9,14 @@ RSpec.describe 'Services::Forecast' do
 
   it 'stores response within cache' do
     with_clean_caching do
-      service = Services::Forecast.new({})
-      service.fetch_forecast
-      expect(cache_has_value?(first_cached_value)).to eq(true)
+      hits, misses = faraday_cache_counts do
+        service = Services::Forecast.new({})
+        service.fetch_forecast
+        service.fetch_forecast
+        service.fetch_forecast
+      end
+      expect(hits).to eq(2)
+      expect(misses).to eq(1)
     end
   end
 end
