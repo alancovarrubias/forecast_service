@@ -11,11 +11,7 @@ RSpec.describe 'Services::Forecast' do
     with_clean_caching do
       service = Services::Forecast.new({})
       service.fetch_forecast
-      expect(Rails.cache.instance_variable_get(:@data).length).to eq(1)
+      expect(cache_has_value?(first_cached_value)).to eq(true)
     end
-  end
-
-  it 'no longer has cache' do
-    expect(Rails.cache.instance_variable_get(:@data).length).to eq(0)
   end
 end
