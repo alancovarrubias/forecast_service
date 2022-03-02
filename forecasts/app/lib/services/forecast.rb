@@ -1,13 +1,12 @@
 module Services
   class Forecast
-    SECONDS_IN_DAYS = 60 * 60 * 24
-    BASE_URL = 'https://jsonplaceholder.typicode.com'.freeze
-    def initialize(_address)
-      @client = CachedRequestService.new(BASE_URL)
+    def initialize(address, dependencies = {})
+      @address = address
+      @client = dependencies[:client] || WundergroundService.new
     end
 
     def fetch_forecast
-      @client.get('/todos/1')
+      @client.fetch_by_zipcode(@address['zipcode'])
     end
   end
 end
