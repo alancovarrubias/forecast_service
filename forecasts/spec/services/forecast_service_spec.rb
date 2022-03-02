@@ -12,13 +12,11 @@ RSpec.describe 'ForecastService' do
 
   it 'stores response within cache' do
     with_clean_caching do
-      hits, misses = faraday_cache_counts do
-        service.fetch
-        service.fetch
-        service.fetch
-      end
-      expect(hits).to eq(2)
-      expect(misses).to eq(1)
+      service.fetch
+      service.fetch
+      service.fetch
+      expect(service.cache_hits).to eq(2)
+      expect(service.cache_misses).to eq(1)
     end
   end
 end
