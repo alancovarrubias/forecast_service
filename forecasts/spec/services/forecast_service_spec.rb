@@ -1,0 +1,24 @@
+require 'rails_helper'
+
+RSpec.describe 'ForecastService' do
+  let(:service) { ForecastService.new({ zipcode: '93065' }, client: PlaceholderService.new) }
+  let(:placeholder_body) { { 'completed' => false, 'id' => 1, 'title' => 'delectus aut autem', 'userId' => 1 } }
+  it 'fetches forecasts first from api then from cache' do
+    with_clean_caching do
+      expect(service.fetch).to eq({ body: placeholder_body, cached: false })
+      expect(service.fetch).to eq({ body: placeholder_body, cached: true })
+    end
+  end
+
+  it 'stores response within cache' do
+    with_clean_caching do
+      hits, misses = faraday_cache_counts do
+        service.fetch
+        service.fetch
+        service.fetch
+      end
+      expect(hits).to eq(2)
+      expect(misses).to eq(1)
+    end
+  end
+end

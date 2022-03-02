@@ -8,21 +8,15 @@ RSpec.describe 'Forecast', type: :request do
       expect(response).to have_http_status(200)
     end
 
-    it 'returns address in response' do
-      post forecasts_path, params: { address: address }
-      expect(response.parsed_body['address']).to eq({ 'zipcode' => '93065' })
-    end
-
     describe 'forecast fetching' do
-      let(:forecast_double) { instance_double(Services::Forecast) }
-      let(:forecast) { {} }
+      let(:forecast_double) { instance_double(ForecastService) }
+      let(:forecast) { { 'temperature' => 'hot' } }
       it 'returns forecast from external weather api' do
-        expect(Services::Forecast).to receive(:new).with(address).and_return(forecast_double)
-        expect(forecast_double).to receive(:fetch_forecast).and_return(forecast)
+        expect(ForecastService).to receive(:new).with(address).and_return(forecast_double)
+        expect(forecast_double).to receive(:fetch).and_return(forecast)
         post forecasts_path, params: { address: address }
         expect(response.parsed_body['forecast']).to eq(forecast)
       end
-
     end
   end
 end
