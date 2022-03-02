@@ -7,8 +7,7 @@ module Services
     end
 
     def fetch_forecast
-      response = @client.get('/todos/1')
-      response.body
+      @client.get('/todos/1')
     end
   end
 end
