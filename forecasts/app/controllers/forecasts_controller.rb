@@ -1,7 +1,11 @@
 class ForecastsController < ApplicationController
+  before_action :setup_service
   def create
-    forecast = ForecastService.new(address_params.to_h)
-    render json: { forecast: forecast.fetch }
+    render json: { forecast: @service.fetch }
+  end
+
+  def setup_service
+    @service = ForecastService.new(address_params.to_h)
   end
 
   def address_params
