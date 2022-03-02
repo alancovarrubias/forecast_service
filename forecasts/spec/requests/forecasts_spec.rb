@@ -14,11 +14,11 @@ RSpec.describe 'Forecast', type: :request do
     end
 
     describe 'forecast fetching' do
-      let(:forecast_double) { instance_double(Weather::Forecast) }
+      let(:forecast_double) { instance_double(Services::Forecast) }
       let(:forecast) { {} }
       it 'returns forecast from external weather api' do
-        expect(Weather::Forecast).to receive(:new).with(address).and_return(forecast_double)
-        expect(forecast_double).to receive(:fetch).and_return(forecast)
+        expect(Services::Forecast).to receive(:new).with(address).and_return(forecast_double)
+        expect(forecast_double).to receive(:fetch_forecast).and_return(forecast)
         post forecasts_path, params: { address: address }
         expect(response.parsed_body['forecast']).to eq(forecast)
       end
