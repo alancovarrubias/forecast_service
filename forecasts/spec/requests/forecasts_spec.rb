@@ -22,6 +22,7 @@ RSpec.describe 'Forecast', type: :request do
         post forecasts_path, params: { address: address }
         expect(response.parsed_body['forecast']).to eq(forecast)
       end
+
     end
   end
 end

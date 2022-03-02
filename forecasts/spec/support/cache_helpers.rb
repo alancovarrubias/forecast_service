@@ -1,5 +1,5 @@
 # test/support/rails_cache_helper.rb:
-module RailsCacheHelpers
+module CacheHelpers
   def with_clean_caching
     Rails.cache.clear
     yield
