@@ -19,6 +19,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faraday', '~> 2.2.0'
 gem 'faraday-http-cache'
 
+gem 'vcr', '~> 5.0'
+gem 'webmock', '~> 3.7', '>= 3.7.6'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

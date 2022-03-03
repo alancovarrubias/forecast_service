@@ -1,7 +1,7 @@
 class ForecastsController < ApplicationController
   before_action :setup_service
   def create
-    render json: { forecast: @service.fetch }
+    render json: { current_temp: @service.current_temp, cached: @service.current_cached }
   end
 
   def setup_service

@@ -4,8 +4,10 @@ RSpec.describe 'Forecast', type: :request do
   let(:address) { { zipcode: '93065' } }
   describe 'POST /forecasts' do
     it 'responds successfully' do
-      post forecasts_path, params: { address: address }
-      expect(response).to have_http_status(200)
+      VCR.use_cassette('avatar_upload') do
+        post forecasts_path, params: { address: address }
+        expect(response).to have_http_status(200)
+      end
     end
 
     describe 'forecast fetching' do

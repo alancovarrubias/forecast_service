@@ -5,6 +5,7 @@ class CachedRequestService
   def initialize(url)
     @client = Faraday.new(url) do |builder|
       builder.use :http_cache, store: Rails.cache, instrumenter: ActiveSupport::Notifications
+      builder.use Faraday::Response::RaiseError
       builder.adapter Faraday.default_adapter
       builder.response :json, content_type: /\bjson$/
     end
