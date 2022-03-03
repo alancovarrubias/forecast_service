@@ -16,8 +16,7 @@ RSpec.describe 'ForecastService' do
       service.current_temp
       service.current_temp
       service.current_temp
-      expect(service.cache_hits).to eq(2)
-      expect(service.cache_misses).to eq(1)
+      expect(cache_data).to eq(2)
     end
   end
 end

@@ -4,7 +4,15 @@ class CurrentWeatherData
   end
 
   def current_temp
-    response_body['main']['temp']
+    temperature['temp']
+  end
+
+  def current_low
+    temperature['temp_min']
+  end
+
+  def current_high
+    temperature['temp_max']
   end
 
   def current_cached
@@ -13,7 +21,7 @@ class CurrentWeatherData
 
   private
 
-  def response_body
-    @weather_response[:body]
+  def temperature
+    @weather_response[:body]['main']
   end
 end
