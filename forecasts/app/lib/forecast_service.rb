@@ -1,7 +1,7 @@
 class ForecastService
   def initialize(address, dependencies = {})
     @address = address
-    @client = dependencies[:client] || WundergroundService.new
+    @client = dependencies[:client] || OpenWeatherService.new
   end
 
   def fetch

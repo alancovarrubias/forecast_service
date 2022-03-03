@@ -2,6 +2,8 @@ FROM ruby:2.7.2-slim
 
 ARG SECRET_KEY
 ENV SECRET_KEY=${SECRET_KEY}
+ARG OPEN_WEATHER_API_KEY
+ENV OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
 ENV RAILS_ENV=production
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 RUN mkdir /project

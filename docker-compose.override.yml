@@ -4,6 +4,8 @@ services:
     image: forecasts:dev
     build:
       dockerfile: Dockerfile.dev
+      args:
+        OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
     volumes:
       - ./forecasts:/project
     ports:
