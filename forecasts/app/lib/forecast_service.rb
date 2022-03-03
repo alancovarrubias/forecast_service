@@ -1,11 +1,15 @@
 class ForecastService
   def initialize(address)
+    @cache_data = CacheData.new
     @current_weather = CurrentWeatherData.new(address['zipcode'])
   end
 
   def method_missing(method, *args, &block)
-    if method =~ /current.*/
+    case method
+    when /current.*/
       @current_weather.send(method, *args, &block)
+    when /cache.*/
+      @cache_data.send(method, *args, &block)
     else
       super
     end
