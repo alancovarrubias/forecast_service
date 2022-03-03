@@ -4,7 +4,6 @@ module Api
       before_action :setup_service
       def create
         render json: {
-          todos: @service.placeholder_todos,
           current_temp: @service.current_temp,
           current_low: @service.current_low,
           current_high: @service.current_high,

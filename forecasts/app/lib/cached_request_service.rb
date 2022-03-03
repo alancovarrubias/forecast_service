@@ -14,15 +14,12 @@ class CachedRequestService
 
   def get(path, params = {})
     prev_cache_hits = @cache_data.cache_hits
-    start_time = Time.now
     response = @client.get(path) do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Cache-Control'] = "max-age=#{SECONDS_IN_DAYS * EXPIRATION_DAYS}"
       req.url(path, params)
     end
 
-    time_taken_ms = (Time.now - start_time) * 1000
-    puts "Time Taken: #{time_taken_ms.round(3)} ms"
     { body: response.body, cached: prev_cache_hits < @cache_data.cache_hits }
   end
 end

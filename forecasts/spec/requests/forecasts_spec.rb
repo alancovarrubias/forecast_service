@@ -7,10 +7,11 @@ RSpec.describe 'Forecast', type: :request do
       VCR.use_cassette('current_temp') do
         post api_v1_forecasts_path, params: params
         expect(response).to have_http_status(200)
+        expect(response.parsed_body['cached']).to eq(false)
       end
     end
 
-    describe 'forecast fetching' do
+    describe 'data fetching' do
       let(:forecast_service) { double(ForecastService) }
       let(:current_temp) { 59.9 }
       let(:current_low) { 49.9 }
@@ -21,7 +22,6 @@ RSpec.describe 'Forecast', type: :request do
         expect(forecast_service).to receive(:current_high).and_return(current_high)
         expect(forecast_service).to receive(:current_low).and_return(current_low)
         expect(forecast_service).to receive(:current_cached).and_return(false)
-        expect(forecast_service).to receive(:placeholder_todos).and_return({})
         post api_v1_forecasts_path, params: params
         expect(response.parsed_body['current_temp']).to eq(current_temp)
         expect(response.parsed_body['current_high']).to eq(current_high)
