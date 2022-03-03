@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'ForecastService' do
-  let(:service) { ForecastService.new({ zipcode: '93065' }, client: PlaceholderService.new) }
+  let(:service) { ForecastService.new({ zipcode: '93065' }) }
   let(:placeholder_body) { { 'completed' => false, 'id' => 1, 'title' => 'delectus aut autem', 'userId' => 1 } }
   it 'fetches forecasts first from api then from cache' do
     with_clean_caching do
