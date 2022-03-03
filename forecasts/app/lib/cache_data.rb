@@ -11,6 +11,7 @@ class CacheData
       when :fresh, :valid
         @hits += 1
       when :invalid, :miss
+        @misses += 1
       end
     end
   end
