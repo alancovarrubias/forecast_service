@@ -21,6 +21,7 @@ RSpec.describe 'Forecast', type: :request do
         expect(forecast_service).to receive(:current_high).and_return(current_high)
         expect(forecast_service).to receive(:current_low).and_return(current_low)
         expect(forecast_service).to receive(:current_cached).and_return(false)
+        expect(forecast_service).to receive(:placeholder_todos).and_return({})
         post api_v1_forecasts_path, params: params
         expect(response.parsed_body['current_temp']).to eq(current_temp)
         expect(response.parsed_body['current_high']).to eq(current_high)
