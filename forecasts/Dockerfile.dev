@@ -1,4 +1,4 @@
-FROM ruby:2.7.2-slim
+FROM --platform=linux/amd64 ruby:2.7.2-slim
 
 ARG OPEN_WEATHER_API_KEY
 ENV OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
